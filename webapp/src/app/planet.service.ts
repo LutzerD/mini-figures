@@ -20,6 +20,22 @@ export class PlanetService {
     this.add(mesh);
   }
 
+  scrollAboutY(angleRadians: number) {
+    const camera = this.camera;
+    const pi = Math.PI;
+    angleRadians += pi / 2;
+
+    var x = camera.position.x,
+      y = camera.position.y,
+      z = camera.position.z;
+
+    const radius = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2));
+    camera.position.x = radius * Math.cos(angleRadians);
+    camera.position.z = radius * Math.sin(angleRadians);
+    camera.lookAt(this.scene.position);
+    console.log(camera.position, radius);
+  }
+
   add(obj: any) {
     this.scene.add(obj);
   }
@@ -35,12 +51,22 @@ export class PlanetService {
 
   constructor(private animationFrameService: AnimationFrameService) {
     const { camera, renderer, scene } = this;
-    camera.position.z = 400;
+    camera.position.z = 80;
+    camera.position.x = 80;
+    camera.position.y = 80;
+    console.log(camera.position);
+    // const look = new THREE.Vector3(0, 80, 80);
+    // camera.lookAt(look);
+
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-    const controls = new OrbitControls(this.camera, renderer.domElement);
-    fromEvent(controls, 'change').subscribe(() => this.animate()); // use only if there is no animation loop
+    const e = document
+      .querySelector('.view-container')
+      ?.appendChild(renderer.domElement) as any;
+    e.className += 'model-scene';
+
+    // const controls = new OrbitControls(this.camera, renderer.domElement);
+    // fromEvent(controls, 'change').subscribe(() => this.animate()); // use only if there is no animation loop
 
     animationFrameService
       .every()
@@ -63,5 +89,6 @@ export class PlanetService {
 
   private animate() {
     this.renderer.render(this.scene, this.camera);
+    // console.log(this.camera.position);
   }
 }

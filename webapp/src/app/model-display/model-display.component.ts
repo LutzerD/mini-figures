@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { PlanetService } from '../planet.service';
+import { ScrollEventsService } from '../scroll-events.service';
 
 @Component({
   selector: 'app-model-display',
@@ -9,13 +10,37 @@ import { PlanetService } from '../planet.service';
   styleUrls: ['./model-display.component.sass'],
 })
 export class ModelDisplayComponent {
-  constructor(private planetService: PlanetService) {
+  constructor(
+    private planetService: PlanetService,
+    private scrollService: ScrollEventsService
+  ) {
     this.loadGeneStealer();
+    this.scrollService.scrollEvents.subscribe((heightPercent) =>
+      this.scrolled(heightPercent)
+    );
+
+    this.planetService.beforeAnimation(() => {
+      const scrollTop = window.scrollY;
+      var screenHeight = screen.height;
+
+      const screenHeights = scrollTop / screenHeight;
+      const intialOffset = 0;
+      const span = 1.5;
+      if (screenHeights > intialOffset && screenHeights < span + intialOffset) {
+        const percent = (screenHeights - intialOffset) / span;
+        this.planetService.scrollAboutY(percent * 2 * Math.PI);
+      } else {
+        this.planetService.scrollAboutY(0);
+      }
+    });
   }
 
-  i = 0;
-  j = 0;
-  k = 0;
+  scrolled(screenHeights: number) {
+    if (screenHeights > 0.5 && screenHeights < 1.5) {
+      const percent = (screenHeights - 1) / 1;
+      this.planetService.scrollAboutY(percent * 2 * Math.PI);
+    }
+  }
   loadGeneStealer() {
     const loader = new OBJLoader();
 
