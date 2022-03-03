@@ -3,16 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DisplayComponent } from './display/display.component';
-import { ModelDisplayComponent } from './model-display/model-display.component';
 import { HomeComponent } from './home/home.component';
+import { MiniatureDisplayComponent } from './miniatures/miniature-display/miniature-display.component';
+import { MiniatureShowcaseComponent } from './miniatures/miniature-showcase/miniature-showcase.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DisplayComponent,
-    ModelDisplayComponent,
-    HomeComponent
+    MiniatureDisplayComponent,
+    HomeComponent,
+    MiniatureShowcaseComponent
   ],
   imports: [
     BrowserModule,

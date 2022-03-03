@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
-import { ScrollEventsService } from './scroll-events.service';
+import { ScrollEventsService } from './common/scroll-events.service';
+import { WindowResizeService } from './common/window-resize.service';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,17 @@ import { ScrollEventsService } from './scroll-events.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @HostListener('window:scroll', ['$event']) // for window scroll events
-  onScroll(event: any) {
-    this.scrollEventsService.scrolled(event);
+  //This could probably be turned into a directive that selects the <body>
+  @HostListener('window:scroll', ['$event']) 
+  onScroll() {
+    this.scrollEventsService.scrolled();
+  }
+  
+  //This could probably be turned into a directive that selects the <body>
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.windowResizeService.windowResized()
   }
 
-  constructor(private scrollEventsService: ScrollEventsService) {}
-
-  title = 'webapp';
+  constructor(private scrollEventsService: ScrollEventsService, private windowResizeService: WindowResizeService) {}
 }

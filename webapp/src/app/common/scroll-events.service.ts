@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class ScrollEventsService {
-  scrolled(event: MouseEvent) {
+  scrolled() {
     const scrollTop = window.scrollY;
     var screenHeight = screen.height;
 

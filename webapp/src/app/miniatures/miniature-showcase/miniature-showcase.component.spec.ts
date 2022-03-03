@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DisplayComponent } from './display.component';
+import { MiniatureShowcaseComponent } from './miniature-showcase.component';
 
-describe('DisplayComponent', () => {
-  let component: DisplayComponent;
-  let fixture: ComponentFixture<DisplayComponent>;
+describe('MiniatureShowcaseComponent', () => {
+  let component: MiniatureShowcaseComponent;
+  let fixture: ComponentFixture<MiniatureShowcaseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DisplayComponent ]
+      declarations: [ MiniatureShowcaseComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DisplayComponent);
+    fixture = TestBed.createComponent(MiniatureShowcaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

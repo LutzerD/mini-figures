@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModelDisplayComponent } from './model-display.component';
+import { MiniatureDisplayComponent } from './miniature-display.component';
 
-describe('ModelDisplayComponent', () => {
-  let component: ModelDisplayComponent;
-  let fixture: ComponentFixture<ModelDisplayComponent>;
+describe('MiniatureDisplayComponent', () => {
+  let component: MiniatureDisplayComponent;
+  let fixture: ComponentFixture<MiniatureDisplayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModelDisplayComponent ]
+      declarations: [ MiniatureDisplayComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModelDisplayComponent);
+    fixture = TestBed.createComponent(MiniatureDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
