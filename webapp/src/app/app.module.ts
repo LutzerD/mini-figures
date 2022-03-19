@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MiniatureDisplayComponent } from './miniatures/miniature-display/miniature-display.component';
 import { MiniatureShowcaseComponent } from './miniatures/miniature-showcase/miniature-showcase.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MiniatureDisplayComponent,
     HomeComponent,
-    MiniatureShowcaseComponent
+    MiniatureShowcaseComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
