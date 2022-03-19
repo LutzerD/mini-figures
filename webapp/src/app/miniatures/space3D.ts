@@ -3,7 +3,16 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { WindowResizeService } from '../common/window-resize.service';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { GUI } from 'dat.gui';
 
+
+export interface GUIParams{
+  intialvalue: any,
+
+  clipIntersection: true,
+  planeConstant: 0,
+  showHelpers: false
+}
 //I wish I could start component names with a number, so this could all say 3DSpace
 //I could make this a service so you don't have to pass in windowResizeService to the constructor, but then if something needs two Space3D's that's weird use of services
 export class Space3D {
@@ -15,15 +24,20 @@ export class Space3D {
     1,
     1000
   );
-  
-  constructor(containerElement: HTMLElement, windowResizeService?: WindowResizeService) {  
+
+  constructor(
+    containerElement: HTMLElement,
+    windowResizeService?: WindowResizeService
+  ) {
     //Set up renderer and camera
     this.resetCamera();
     this.renderer.setPixelRatio(window.devicePixelRatio);
     const containerBoundingRect = containerElement.getBoundingClientRect();
-    this.renderer.setSize(containerBoundingRect.width, containerBoundingRect.height);
-    
-    
+    this.renderer.setSize(
+      containerBoundingRect.width,
+      containerBoundingRect.height
+    );
+
     //Allows for the camera to move in the 3d space with the mouse, when interactable=true
     const controls = new OrbitControls(this.camera, this.renderer.domElement);
     fromEvent(controls, 'change').subscribe(() => {
@@ -32,21 +46,23 @@ export class Space3D {
       }
       this.animate();
     });
-    
-    //Allows the Space3D to adjust when window is resized 
-    windowResizeService?.windowResizeEvents.subscribe(()=>this.onWindowResize()) 
-    
-    containerElement.appendChild(this.domElement)
+
+    //Allows the Space3D to adjust when window is resized
+    windowResizeService?.windowResizeEvents.subscribe(() =>
+      this.onWindowResize()
+    );
+
+    containerElement.appendChild(this.domElement);
   }
 
   add(obj: THREE.Object3D) {
     this.scene.add(obj);
-    this.animate()
+    this.animate();
   }
 
   //Allows for the camera to move in the 3d space with the mouse, when interactable=true
   private interactable = false;
-  setInteractable(isInteractable:boolean) {
+  setInteractable(isInteractable: boolean) {
     this.interactable = isInteractable;
   }
 
@@ -61,17 +77,16 @@ export class Space3D {
 
   //Re-adjusts camera / renderer to screen size
   //If you want to recalculate size of contents / projection / etc. on window resize, this needs to be called
-  onWindowResize() { 
+  onWindowResize() {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.animate()
+    this.animate();
   }
 
   animate() {
     this.renderer.render(this.scene, this.camera);
   }
-
 
   loadGeneStealer() {
     const loader = new OBJLoader();

@@ -32,7 +32,7 @@ class Miniature {
 
   onLoad: Observable<null>;
 
-  private model!: THREE.Group;
+  public model!: THREE.Group;
   constructor(
     objUrl: string,
     private scale: THREE.Vector3,
@@ -54,5 +54,5 @@ class Miniature {
 export const GeneStealerModel = () =>
   new Miniature(
     'assets/textures/genestealer-mesh.obj',
-    new THREE.Vector3(10, 10, 10)
+    new THREE.Vector3(1, 1, 1)
   );

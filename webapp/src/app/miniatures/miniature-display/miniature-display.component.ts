@@ -5,6 +5,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
+import { GUI } from 'dat.gui';
 import { WindowResizeService } from 'src/app/common/window-resize.service';
 import { GeneStealerModel } from '../miniatures';
 import { Space3D } from '../space3D';
@@ -38,8 +39,40 @@ export class MiniatureDisplayComponent implements AfterViewInit {
     this.miniatureSpace.setInteractable(this.interactable);
     const geneStealer = GeneStealerModel();
     geneStealer.onLoad.subscribe(() => {
-      geneStealer.addTo(this.miniatureSpace)
-      this.miniatureSpace.animate()
+      geneStealer.addTo(this.miniatureSpace);
+      this.miniatureSpace.animate();
     });
+  }
+
+  addGuiFolder() {
+    const params = {
+      clipIntersection: true,
+      planeConstant: 0,
+      showHelpers: false,
+    };
+
+    const gui = new GUI();
+
+    gui
+      .add(params, 'clipIntersection')
+      .name('clip intersection')
+      .onChange((value) => {
+        this.miniatureSpace.animate();
+      });
+
+    gui
+      .add(params, 'planeConstant', -1, 1)
+      .step(0.01)
+      .name('plane constant')
+      .onChange((value) => {
+        this.miniatureSpace.animate();
+      });
+
+    gui
+      .add(params, 'showHelpers')
+      .name('show helpers')
+      .onChange((value) => {
+        this.miniatureSpace.animate();
+      });
   }
 }
